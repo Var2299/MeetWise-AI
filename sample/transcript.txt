@@ -1,0 +1,53 @@
+Meeting: Q3 Product Planning
+Date: July 15, 2025
+Attendees: Sarah Chen (PM), James Park (Engineering Lead), Anika Patel (Design), Marco Rivera (Sales)
+
+Sarah: Alright everyone, let's get started. Today we need to finalize our Q3 roadmap and decide on the infrastructure vendor.
+
+James: Before we dive in, I want to flag that the API v2 migration is almost done. We're targeting end of August.
+
+Sarah: Great. That's actually connected to our vendor decision. So we've evaluated vendors A and B. Vendor A has better SLA terms and their pricing is 20% lower over 3 years.
+
+Marco: From a sales perspective, Vendor A's reliability numbers are a selling point too. Customers have been asking about uptime guarantees.
+
+Anika: Design-wise, both are fine, no real difference. I defer to what makes sense technically.
+
+James: Technically Vendor A is better. Their Kubernetes support is more mature.
+
+Sarah: Ok, I think we're aligned — we go with Vendor A. James, can you draft the contract requirements by next Wednesday?
+
+James: Sure, I'll send a draft to Sarah and legal by July 23rd.
+
+Sarah: Next item. The mobile app feature set for Q3. Anika, where are we?
+
+Anika: I've got designs done for the core screens but we identified 6 new features from user research. That's too much for Q3 realistically.
+
+James: Agreed. I'd say we're looking at maybe 2-3 features max in Q3, the rest move to Q4.
+
+Sarah: Which features are must-have for Q3?
+
+Anika: Push notifications and offline mode. Those were the top pain points.
+
+Marco: Offline mode is huge. I've lost two enterprise deals because we didn't have it.
+
+Sarah: Decision: push notifications and offline mode ship Q3. Everything else defers to Q4. James, Anika — can you align on scope this week?
+
+James: I'll set up a sync with Anika by July 18th.
+
+Sarah: One more thing. Marketing wants to run the campaign the first week of August. That's right after the API migration. Is that safe, James?
+
+James: It's tight but doable. I'd recommend we finish API v2 by July 31st to give a week of buffer.
+
+Sarah: OK, July 31st for API v2. James owns that. We'll tell marketing August 5th is the soft launch date.
+
+Marco: I'll loop in marketing and give them the August 5th date.
+
+Sarah: Perfect. Let's wrap up. Action items: James drafts vendor contract by July 23rd, James and Anika align on Q3 mobile scope by July 18th, James completes API v2 by July 31st, Marco coordinates with marketing for August 5th launch. I'll update the roadmap on Confluence by EOD today. Any questions?
+
+James: None from me.
+
+Anika: All good.
+
+Marco: We're set.
+
+Sarah: Great. Talk next week.

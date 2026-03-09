@@ -1,0 +1,59 @@
+{
+  "title": "Q3 Product Planning Meeting",
+  "tldr": "Team finalized Vendor A for cloud hosting, scoped Q3 mobile features to push notifications and offline mode, and set API v2 deadline for July 31.",
+  "key_takeaways": [
+    "Vendor A selected for cloud hosting — 20% cost savings and stronger SLA over 3 years.",
+    "API v2 migration targeted for July 31 to allow buffer before August 5 campaign launch.",
+    "Mobile app Q3 scope limited to push notifications and offline mode due to resource constraints.",
+    "Marketing campaign soft launch confirmed for August 5th."
+  ],
+  "decisions": [
+    {
+      "decision": "Proceed with Vendor A for cloud hosting",
+      "rationale": "Better pricing (20% savings over 3 years), stronger SLA, and more mature Kubernetes support."
+    },
+    {
+      "decision": "Limit Q3 mobile features to push notifications and offline mode",
+      "rationale": "Resource constraints; remaining features deferred to Q4."
+    },
+    {
+      "decision": "Set API v2 completion deadline to July 31",
+      "rationale": "Provides one-week buffer before August 5 marketing campaign launch."
+    }
+  ],
+  "action_items": [
+    {
+      "task": "Draft vendor contract requirements and send to Sarah and legal",
+      "owner": "James Park",
+      "due": "2025-07-23"
+    },
+    {
+      "task": "Align on Q3 mobile feature scope",
+      "owner": "James Park, Anika Patel",
+      "due": "2025-07-18",
+      "note": "James to schedule sync with Anika"
+    },
+    {
+      "task": "Complete API v2 migration",
+      "owner": "James Park",
+      "due": "2025-07-31"
+    },
+    {
+      "task": "Coordinate with marketing team for August 5 soft launch date",
+      "owner": "Marco Rivera",
+      "due": "TBD"
+    },
+    {
+      "task": "Update Q3 roadmap on Confluence",
+      "owner": "Sarah Chen",
+      "due": "2025-07-15",
+      "note": "EOD today"
+    }
+  ],
+  "suggested_followups": [
+    "Legal review of Vendor A contract before signing.",
+    "Define Q4 mobile feature backlog from remaining user research items.",
+    "Post-launch retrospective after August 5 campaign goes live."
+  ],
+  "confidence": 0.92
+}
