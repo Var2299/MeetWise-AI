@@ -1,117 +1,225 @@
-# MeetWise AI
+# MeetWise AI ✦
 
-Transform meeting transcripts into structured, actionable summaries using Google Gemini AI.
+> Transform raw meeting transcripts into structured, actionable summaries — powered by Google Gemini AI.
+
+MeetWise AI takes any meeting transcript (paste or upload), runs it through Gemini, and returns a clean breakdown of decisions, action items, key takeaways, and follow-ups. Summaries are saved to MongoDB, can be emailed to recipients, and exported as JSON.
+
+---
 
 ## Features
 
-- **AI Summaries** — Extracts title, TL;DR, key takeaways, decisions, action items, and follow-ups
-- **Email Delivery** — Sends structured HTML + JSON summary to recipients via Gmail
-- **JWT Auth** — Register/login with bcrypt-hashed passwords
-- **Dark/Light Mode** — Persisted in localStorage
-- **Performance Metrics** — LLM latency and token counts returned with every summary
-- **Stub Mode** — Runs fully without an API key (returns example summary)
+- **AI Summarization** — Extracts title, TL;DR, key takeaways, decisions, action items, and suggested follow-ups using Gemini 1.5 Flash
+- **Email Delivery** — Send any summary to one or more recipients with a chip-based email input, HTML email body, and JSON attachment
+- **Authentication** — Register with name/email/password, login with JWT — passwords hashed with bcrypt
+- **MongoDB Storage** — Users and all generated summaries persisted in MongoDB Atlas (falls back to a local JSON file for demo use)
+- **Summary History** — Browse and reload any past summary from the sidebar
+- **Dark / Light Mode** — Toggle persisted in `localStorage`
+- **Stub Mode** — Runs fully without a Gemini API key, returning a realistic example summary with clear TODO markers
+- **Performance Metrics** — LLM latency, total latency, prompt length, and token count returned with every summary
 
-## Quick Start
+---
 
-```bash
-git clone <repo>
-cd meetwise-ai
-npm install
+## Tech Stack
 
-# Copy env file and fill in your keys
-cp .env.local.example .env.local
+| Layer | Technology |
+|---|---|
+| Framework | [Next.js 15](https://nextjs.org) (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| AI | Google Gemini 1.5 Flash (via REST API) |
+| Database | MongoDB (via [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)) |
+| Auth | JWT (`jsonwebtoken`) + bcrypt |
+| Email | Nodemailer (Gmail SMTP) |
+| Fonts | Playfair Display + DM Sans |
 
-npm run dev
-# Open http://localhost:3000
-```
-
-## Environment Variables
-
-| Variable | Required | Description |
-|---|---|---|
-| `MONGODB_URI` | Recommended | MongoDB connection string. Without it, falls back to `data/users.json`. Get a free cluster at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) |
-| `MONGODB_DB` | No | Database name (default: `meetwise`) |
-| `GEMINI_API_KEY` | No* | Google Gemini API key. Without it, stub summaries are returned. Get one at [aistudio.google.com](https://aistudio.google.com/app/apikey) |
-| `JWT_SECRET` | Yes | Long random string for signing JWTs. Use `openssl rand -hex 32` |
-| `EMAIL_USER` | No* | Gmail address for sending summaries |
-| `EMAIL_PASS` | No* | Gmail [App Password](https://support.google.com/accounts/answer/185833) (not your real password) |
-
-*Optional: app runs without these but with reduced functionality.
-
-## MongoDB Collections
-
-When `MONGODB_URI` is set, two collections are created automatically:
-
-- **`users`** — Registered accounts (email + bcrypt hash). Unique index on `email`.
-- **`summaries`** — Every generated summary, linked to the user who created it. Indexed by `userId + createdAt` for fast history queries.
-
-The app falls back to `data/users.json` when `MONGODB_URI` is absent (demo/dev only — not safe for multi-process deployments).
-
-## API Routes
-
-### `POST /api/auth/register`
-```json
-{ "email": "you@example.com", "password": "secure123" }
-→ { "token": "...", "email": "..." }
-```
-
-### `POST /api/auth/login`
-```json
-{ "email": "you@example.com", "password": "secure123" }
-→ { "token": "...", "email": "..." }
-```
-
-### `POST /api/summarize`
-Headers: `Authorization: Bearer <token>`
-```json
-{
-  "transcript": "...up to 50,000 chars...",
-  "recipients": ["alice@example.com"]
-}
-→ { "summary": {...}, "perf": { "latencyMs": 1230, "llmMs": 1200, "promptLength": 3200, "responseTokens": 420 } }
-```
-
-Returns `413` if transcript exceeds 50,000 characters.
-
-## Sample Data
-
-- `sample/transcript.txt` — Example Q3 planning meeting transcript
-- `sample/expected-summary.json` — Expected JSON output from that transcript
+---
 
 ## Project Structure
 
 ```
 meetwise-ai/
 ├── app/
-│   ├── page.tsx                 # Main UI
+│   ├── page.tsx                    # Main UI — transcript input, summary display
 │   ├── layout.tsx
 │   ├── globals.css
 │   ├── components/
-│   │   ├── AuthPanel.tsx
-│   │   ├── SummaryCard.tsx
-│   │   ├── ThemeToggle.tsx
+│   │   ├── AuthPanel.tsx           # Login / register form
+│   │   ├── SummaryCard.tsx         # Structured summary display + JSON export
+│   │   ├── EmailPanel.tsx          # Chip-based recipient input + send button
+│   │   ├── HistoryPanel.tsx        # Past summaries from MongoDB
+│   │   ├── ThemeToggle.tsx         # Dark/light toggle
 │   │   └── LoadingSpinner.tsx
 │   └── api/
 │       ├── auth/
-│       │   ├── register/route.ts
-│       │   └── login/route.ts
-│       └── summarize/route.ts
+│       │   ├── register/route.ts   # POST — create account
+│       │   └── login/route.ts      # POST — sign in
+│       ├── summarize/route.ts      # POST — generate summary
+│       ├── summaries/route.ts      # GET  — fetch user history
+│       └── email/route.ts          # POST — send summary email
 ├── lib/
-│   ├── llm.ts                   # Gemini API helper + stub
-│   ├── auth.ts                  # JWT + bcrypt helpers
-│   ├── email.ts                 # Nodemailer + email builders
-│   └── users.ts                 # File-based user store
+│   ├── llm.ts                      # Gemini API call + stub fallback
+│   ├── auth.ts                     # JWT + bcrypt helpers
+│   ├── email.ts                    # Nodemailer + HTML/text email builders
+│   ├── users.ts                    # User store (MongoDB or JSON file)
+│   ├── summaries.ts                # Summary store (MongoDB)
+│   └── mongodb.ts                  # MongoDB connection singleton
 ├── data/
-│   └── users.json               # Demo user store (auto-created)
+│   └── users.json                  # Fallback user store (auto-created)
 └── sample/
-    ├── transcript.txt
-    └── expected-summary.json
+    ├── transcript.txt              # Example meeting transcript
+    └── expected-summary.json       # Expected JSON output
 ```
 
-## Production Notes
+---
 
-- **Replace `data/users.json`** with a real database (PostgreSQL, MongoDB, etc.) before deploying.
-- **Use HTTPS** in production. Set `NODE_ENV=production`.
-- **JWT_SECRET** must be a long, random, secret string — never commit it.
-- **Gmail SMTP** requires an App Password (2FA enabled on account).
-- The file-based user store is single-process only; it won't work correctly if you scale to multiple instances.
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- A [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) free cluster (or local MongoDB)
+- A [Google AI Studio](https://aistudio.google.com/app/apikey) API key for real summaries
+- A Gmail account with an [App Password](https://support.google.com/accounts/answer/185833) for email sending
+
+### Installation
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/your-username/meetwise-ai.git
+cd meetwise-ai
+
+# 2. Install dependencies
+npm install
+
+# 3. Set up environment variables
+cp .env.local.example .env.local
+# Edit .env.local and fill in your keys (see below)
+
+# 4. Start the dev server
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+> **No API keys?** The app still runs. It returns a realistic stub summary and skips email sending — great for exploring the UI.
+
+---
+
+## Environment Variables
+
+Create a `.env.local` file in the project root:
+
+```env
+# MongoDB — recommended for full functionality
+MONGODB_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net/?retryWrites=true&w=majority
+MONGODB_DB=meetwise
+
+# Google Gemini — required for real AI summaries
+GEMINI_API_KEY=your_gemini_api_key_here
+
+# JWT — required, use a long random string
+JWT_SECRET=change-this-to-a-long-random-secret
+
+# Gmail SMTP — required for email sending
+EMAIL_USER=your_gmail@gmail.com
+EMAIL_PASS=your_gmail_app_password
+
+NODE_ENV=development
+```
+
+| Variable | Required | Notes |
+|---|---|---|
+| `MONGODB_URI` | Recommended | Falls back to `data/users.json` without it |
+| `MONGODB_DB` | No | Defaults to `meetwise` |
+| `GEMINI_API_KEY` | No* | Returns stub summary if absent |
+| `JWT_SECRET` | Yes | Generate with `openssl rand -hex 32` |
+| `EMAIL_USER` | No* | Gmail address |
+| `EMAIL_PASS` | No* | Gmail App Password — **not** your account password |
+
+---
+
+## API Reference
+
+### Auth
+
+```
+POST /api/auth/register
+Body: { name, email, password }
+→    { token, email, name }
+
+POST /api/auth/login
+Body: { email, password }
+→    { token, email, name }
+```
+
+### Summarize
+
+```
+POST /api/summarize
+Headers: Authorization: Bearer <token>
+Body: { transcript }          # max 50,000 characters
+→    { summary, perf }
+```
+
+Returns `413` if the transcript exceeds 50,000 characters.
+
+### Email
+
+```
+POST /api/email
+Headers: Authorization: Bearer <token>
+Body: { recipients: string[], summary }
+→    { ok, recipients, subject }
+```
+
+### History
+
+```
+GET /api/summaries
+Headers: Authorization: Bearer <token>
+→    { summaries }            # 30 most recent, newest first
+```
+
+---
+
+## Summary Output Shape
+
+Every summary follows this JSON structure:
+
+```json
+{
+  "title": "Q3 Planning Meeting",
+  "tldr": "One-sentence summary of the meeting.",
+  "key_takeaways": ["...", "..."],
+  "decisions": [
+    { "decision": "Proceed with Vendor A", "rationale": "Better pricing and SLA" }
+  ],
+  "action_items": [
+    { "task": "Draft vendor contract", "owner": "Jane", "due": "2025-07-23", "note": "Legal must approve" }
+  ],
+  "suggested_followups": ["...", "..."],
+  "confidence": 0.92
+}
+```
+
+---
+
+## Database
+
+When `MONGODB_URI` is configured, two collections are created automatically:
+
+- **`users`** — name, email, bcrypt-hashed password. Unique index on `email`.
+- **`summaries`** — full summary JSON, user reference, recipients, perf metrics, timestamp. Indexed on `userId + createdAt`.
+
+Without `MONGODB_URI`, user accounts are stored in `data/users.json` (single-process, dev only).
+
+---
+
+## Production Checklist
+
+- [ ] Set `NODE_ENV=production`
+- [ ] Use a strong, random `JWT_SECRET` — never commit it
+- [ ] Connect a real MongoDB instance (Atlas or self-hosted)
+- [ ] Enable HTTPS
+- [ ] Use a Gmail App Password, not your account password
+- [ ] Replace `data/users.json` with MongoDB before scaling
