@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverComponentsExternalPackages: ['bcrypt', 'mongodb'],
-  },
-};
+  serverExternalPackages: ['mongoose'],
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig
