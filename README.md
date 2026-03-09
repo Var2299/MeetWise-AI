@@ -33,6 +33,63 @@ MeetWise AI takes any meeting transcript (paste or upload), runs it through Gemi
 
 ---
 
+## Preview
+
+### Home Page
+<img width="1917" height="980" alt="image" src="https://github.com/user-attachments/assets/ad8eb552-ff6c-48bf-8c15-437993ed9d94" />
+
+---
+
+### Main Page
+<img width="1902" height="981" alt="image" src="https://github.com/user-attachments/assets/cb5bbaa4-c2e7-4c94-a10d-f510ddac41ff" />
+
+---
+
+### AI-Generated Summary
+<img width="1898" height="913" alt="image" src="https://github.com/user-attachments/assets/fae9eb14-9647-4a1b-a53e-d99c5f2a0b11" />
+
+---
+
+<img width="1896" height="825" alt="image" src="https://github.com/user-attachments/assets/97652ad6-08f2-483b-9648-c8c9f40ed324" />
+
+---
+
+### Email Delivery
+<img width="1087" height="365" alt="image" src="https://github.com/user-attachments/assets/b732e53d-cc16-4c18-9c88-f31b59486b93" />
+
+---
+
+<img width="1736" height="97" alt="image" src="https://github.com/user-attachments/assets/a52dc244-7666-4e4d-8ce0-36e5d5d1fba0" />
+
+---
+
+<img width="1837" height="890" alt="image" src="https://github.com/user-attachments/assets/e815e59a-3de6-450d-81ed-90ed3a1768b9" />
+
+---
+
+### History
+<img width="1117" height="380" alt="image" src="https://github.com/user-attachments/assets/bf41c8f4-01d0-4497-9c93-f0310dec910c" />
+
+---
+
+### User Info(MONGO_DB)
+<img width="782" height="167" alt="image" src="https://github.com/user-attachments/assets/2fed24bd-95be-4de3-a44d-a7fa3cd77c1e" />
+
+---
+
+### Summaries(MONGO_DB)
+<img width="982" height="447" alt="image" src="https://github.com/user-attachments/assets/4bc8b3b0-cf60-4d74-a7d8-139d196a0e9b" />
+
+---
+
+<img width="727" height="470" alt="image" src="https://github.com/user-attachments/assets/693e0e99-5d34-4710-9101-bbd0f6c055cb" />
+
+---
+
+<img width="688" height="312" alt="image" src="https://github.com/user-attachments/assets/40d0ace7-d3ad-488d-a18a-c5e7ebd22e55" />
+
+---
+
 ## Project Structure
 
 ```
