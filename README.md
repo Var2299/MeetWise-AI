@@ -14,7 +14,6 @@ MeetWise AI takes any meeting transcript (paste or upload), runs it through Gemi
 - **MongoDB Storage** — Users and all generated summaries persisted in MongoDB Atlas (falls back to a local JSON file for demo use)
 - **Summary History** — Browse and reload any past summary from the sidebar
 - **Dark / Light Mode** — Toggle persisted in `localStorage`
-- **Stub Mode** — Runs fully without a Gemini API key, returning a realistic example summary with clear TODO markers
 - **Performance Metrics** — LLM latency, total latency, prompt length, and token count returned with every summary
 
 ---
@@ -101,8 +100,6 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-> **No API keys?** The app still runs. It returns a realistic stub summary and skips email sending — great for exploring the UI.
-
 ---
 
 ## Environment Variables
@@ -126,16 +123,6 @@ EMAIL_PASS=your_gmail_app_password
 
 NODE_ENV=development
 ```
-
-| Variable | Required | Notes |
-|---|---|---|
-| `MONGODB_URI` | Recommended | Falls back to `data/users.json` without it |
-| `MONGODB_DB` | No | Defaults to `meetwise` |
-| `GEMINI_API_KEY` | No* | Returns stub summary if absent |
-| `JWT_SECRET` | Yes | Generate with `openssl rand -hex 32` |
-| `EMAIL_USER` | No* | Gmail address |
-| `EMAIL_PASS` | No* | Gmail App Password — **not** your account password |
-
 ---
 
 ## API Reference
