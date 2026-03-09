@@ -35,12 +35,17 @@ MeetWise AI takes any meeting transcript (paste or upload), runs it through Gemi
 
 ## Preview
 
-### Home Page
+### User Authentication
 <img width="1917" height="980" alt="image" src="https://github.com/user-attachments/assets/ad8eb552-ff6c-48bf-8c15-437993ed9d94" />
 
 ---
 
-### Main Page
+### User Authentication - Dark Themed
+<img width="1917" height="990" alt="image" src="https://github.com/user-attachments/assets/e7964200-1c07-4133-93f5-66b9a2cfb144" />
+
+--- 
+
+### Home Page
 <img width="1902" height="981" alt="image" src="https://github.com/user-attachments/assets/cb5bbaa4-c2e7-4c94-a10d-f510ddac41ff" />
 
 ---
