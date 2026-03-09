@@ -95,6 +95,11 @@ MeetWise AI takes any meeting transcript (paste or upload), runs it through Gemi
 
 ---
 
+### Performance & Latency
+<img width="1783" height="462" alt="image" src="https://github.com/user-attachments/assets/056cdd2a-27d5-4cef-8bdb-61abb1b06052" />
+
+---
+
 ## Project Structure
 
 ```
