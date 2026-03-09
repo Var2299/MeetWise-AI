@@ -8,7 +8,7 @@ MeetWise AI takes any meeting transcript (paste or upload), runs it through Gemi
 
 ## Features
 
-- **AI Summarization** — Extracts title, TL;DR, key takeaways, decisions, action items, and suggested follow-ups using Gemini 1.5 Flash
+- **AI Summarization** — Extracts title, TL;DR, key takeaways, decisions, action items, and suggested follow-ups using Gemini 2.5 Flash
 - **Email Delivery** — Send any summary to one or more recipients with a chip-based email input, HTML email body, and JSON attachment
 - **Authentication** — Register with name/email/password, login with JWT — passwords hashed with bcrypt
 - **MongoDB Storage** — Users and all generated summaries persisted in MongoDB Atlas (falls back to a local JSON file for demo use)
